@@ -23,7 +23,6 @@ jobs:
               echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
           fi
       - name: Find dupes
-        needs: changed-files
         id: find-dupes
         run: |
           for file in ${{ steps.changed-files.outputs.changed_files }}; do
