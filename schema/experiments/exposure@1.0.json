@@ -1,0 +1,49 @@
+{
+  "name": "exposure",
+  "team": "data-engineering",
+  "doc": "This event is emitted when a user is exposed to a control or treatment in an experiment.",
+  "includes": ["event_data/1.0"],
+  "valid_events": ["create"],
+  "fields" : [
+    {
+      "name": "public_id",
+      "type": "string",
+      "doc": "A string uniquely identifying a subject's allocation to an experiment."
+    },
+    {
+      "name": "experiment_public_id",
+      "type": "string",
+      "doc": "An identifier for the experiment the subject was exposed to."
+    },
+    {
+      "name": "variant_public_id",
+      "type": "string",
+      "doc": "A id string identifying the treatment a subject was exposed to within the experiment."
+    },
+    {
+      "name": "parameter_name",
+      "type": "string",
+      "doc": "This is the field used to allocate, typically customer_public_id or device_environment_id."
+    },
+    {
+      "name": "parameter_value",
+      "type": "string",
+      "doc": "The allocation parameter value. ex: the customer_public_id."
+    },
+    {
+      "name": "allocation_status",
+      "type": {
+        "type": "enum",
+        "symbols": ["EXPERIMENT_COMPLETED", "EXPERIMENT_NOT_ACTIVE", "ALLOCATED", "UNALLOCATED", "ERROR"]
+      },
+      "doc": "The state of allocation. Options are experiment completed, experiment not active, allocated and unallocated"
+    },
+    {
+      "name": "exposure_dimension",
+      "type": ["null", "string"],
+      "encoding": "json_object",
+      "doc": "A serialized JSON string containing the exposure dimensions. These are dimensions that the experiment results can be segmented on, ex: device_environment_id."
+    }
+  ]
+}
+

@@ -1,0 +1,60 @@
+{
+  "name": "experiment_definition",
+  "doc": "The experiment definition from ExperimentService.",
+  "team": "data-engineering",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "valid_events": ["create"],
+  "fields": [
+    {
+      "name": "public_id",
+      "type": "string",
+      "doc": "Public id for experiment"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Experiment name"
+    },
+    {
+      "name": "hypothesis",
+      "type": "string",
+      "doc": "Experiment hypothesis"
+    },
+    {
+      "name": "details",
+      "type": "string",
+      "doc": "Details of the experiment"
+    },
+    {
+      "name": "allocation_algorithm",
+      "type": "string",
+      "doc": "Customer allocation algorithm"
+    },
+    {
+      "name": "allocation_parameter",
+      "type": "string",
+      "doc": "The parameter by which the customer is allocated, ex: customer_public_id"
+    },
+    {
+      "name": "is_archived",
+      "type": "boolean",
+      "doc": "Indication whether the experiment has been archived"
+    },
+    {
+      "name": "updated_by",
+      "type": ["null", "string"],
+      "doc": "The username of the person creating this experiment."
+    },
+    {
+      "name": "squad",
+      "type": ["null", "string"],
+      "doc": "The name of the squad creating this experiment."
+    },
+    {
+      "name": "experiment_lead",
+      "type": ["null", "string"],
+      "doc": "The LDAP of the experiment lead owning this experiment."
+    }
+  ]
+}

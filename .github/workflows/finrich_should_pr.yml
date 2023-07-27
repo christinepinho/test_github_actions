@@ -1,0 +1,35 @@
+name: Finrich Should PR
+
+on: pull_request
+
+jobs:
+  findFinrichFiles:
+    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    name: Find changed-files
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+      - name: Get Finrich-relevant schemas changed
+        id: find-finrich-files
+        uses: tj-actions/changed-files@v35
+        with:
+          files_from_source_file: |
+            .github/workflows/finrich_schemas.txt
+          separator: "\n"
+      - name: Show output for debugging
+        run: |
+          echo 'outputs are: ${{ toJSON(steps.find-finrich-files.outputs) }}'
+        shell:
+          bash
+      - name: Comment PR Found
+        uses: thollander/actions-comment-pull-request@v2
+        if: steps.find-finrich-files.outputs.any_changed == 'true'
+        with:
+          message: |
+            :warning: Potentially found finrich file! 
+            
+            TODO: Check whether this PR is changing one of [these files](https://github.com/Remitly/event-schemas/blob/main/.github/workflows/finrich_schemas.txt). 
+            If so, ping #fdp slack channel for review before merging.
+            
+            Note: There can be false positives if the branch isn't current with main. So check the list before bothering #ufdl.

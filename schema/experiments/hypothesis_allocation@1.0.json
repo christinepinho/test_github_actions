@@ -1,0 +1,33 @@
+{
+  "name": "hypothesis_allocation",
+  "team": "marketing-engineering",
+  "doc": "A customer is allocated to an experiment. Variations are C for Control and T1 for 1st Treatment, T2 for 2nd Treatment and so on",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "fields" : [
+    {
+      "name": "experiment_name",
+      "type": "string",
+      "doc": "Name of the experiment"
+    },
+    {
+      "name": "experiment_type",
+      "type": "string",
+      "doc": "Experiment setup type"
+    },
+    {
+      "name": "variation_name",
+      "type": "string",
+      "doc": "Variation name for the customer allocation"
+    },
+    {
+      "name": "customer_public_id",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "Customer public Id to identify customer"
+    }
+  ]
+}

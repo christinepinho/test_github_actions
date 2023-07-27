@@ -1,0 +1,40 @@
+{
+  "name": "experiment_variant",
+  "doc": "The experiment variant (treatment groups) from ExperimentService.",
+  "team": "data-engineering",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "valid_events": ["create"],
+  "fields": [
+    {
+      "name": "public_id",
+      "type": "string",
+      "doc": "Public id for the variant group"
+    },
+    {
+      "name": "experiment_public_id",
+      "type": "string",
+      "doc": "Experiment public id"
+    },
+    {
+      "name": "short_name",
+      "type": "string",
+      "doc": "A short, identifying name for the treatment"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "doc": "The description of the treatment"
+    },
+    {
+      "name": "allocation_percent",
+      "type": "double",
+      "doc": "The amount to allocate to the variant. This is on a scale from 0 to 100, so a 40% allocation will be represented as 40.0"
+    },
+    {
+      "name": "control",
+      "type": "boolean",
+      "doc": "Indication whether a variant group is control"
+    }
+  ]
+}

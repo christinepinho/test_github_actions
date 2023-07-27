@@ -1,0 +1,19 @@
+{
+  "name": "experiment_rate_limit",
+  "doc": "Rate limiting event for an experiment",
+  "team": "data-engineering",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "fields": [
+    {
+      "name": "experiment_identifier",
+      "type": "string",
+      "doc": "Identifier for the experiment that is being rate limited"
+    },
+    {
+      "name": "identifier_type",
+      "type": "string",
+      "doc": "Identifier type for the experiment (NAME or PUBLIC_ID)"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "traffic_percentage",
+  "team": "data-engineering",
+  "doc": "This event is emitted when the percent of traffic rolled out for this experiment is set or changed. This data is also saved in the ExperimentDB in the traffic_percentage_history table.",
+  "includes": ["event_data/1.0"],
+  "valid_events": ["create", "update"],
+  "fields" : [
+    {
+      "name": "experiment_public_id",
+      "type": "string",
+      "doc": "An externally referencable identifier for the experiment. Also known as experiment_key in experiment mart."
+    },
+    {
+      "name": "traffic_percentage",
+      "type": "int",
+      "doc": "The value of the traffic percentage at the time of this event. A value of 0 means no traffic is allocated to the experiment. A value of 100 means all traffic will see the control or one of the treatments"
+    },
+    {
+      "name": "updated_by",
+      "type": ["null", "string"],
+      "doc": "The username of the person setting this traffic percentage value."
+    }
+  ]
+}

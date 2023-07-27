@@ -1,0 +1,19 @@
+# Transpiled Schemas
+targets/*
+
+# OS/IDE files
+.DS_Store
+.buildpatch
+.project
+.idea/
+*.pyc
+*.swp
+*.iml
+
+# NPM
+npm-debug.log
+node_modules/
+
+# yarn
+yarn-error.log
+yarn_error.log

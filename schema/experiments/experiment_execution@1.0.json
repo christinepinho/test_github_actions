@@ -1,0 +1,43 @@
+{
+  "name": "experiment_execution",
+  "doc": "The experiment execution from ExperimentService.",
+  "team": "data-engineering",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "valid_events": ["create", "update"],
+  "fields": [
+    {
+      "name": "public_id",
+      "type": "string",
+      "doc": "Public id for execution"
+    },
+    {
+      "name": "experiment_public_id",
+      "type": "string",
+      "doc": "Experiment's public id"
+    },
+    {
+      "name": "start_datetime",
+      "type": {"type": "long", "logicalType": "timestamp-millis"},
+      "doc": "The date the experiment is scheduled and is avaialble for allocations"
+    },
+    {
+      "name": "end_datetime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "doc": "End date of the experiment once the experiment gets resolved."
+    },
+    {
+      "name": "state",
+      "type": {
+        "type": "enum",
+        "symbols": ["ACTIVE", "RESOLVED"]
+      },
+      "doc": "Experiment's state i.e is experiment active or resolved"
+    },
+    {
+      "name": "winning_variant_public_id",
+      "type": ["null", "string"],
+      "doc": "The public id of the winning variant"
+    }
+  ]
+}

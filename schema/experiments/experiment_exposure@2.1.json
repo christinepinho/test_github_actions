@@ -1,0 +1,37 @@
+{
+  "name": "experiment_exposure",
+  "team": "data-engineering",
+  "doc": "DEPRECATED. Use exposure instead. This event is emitted when a user is exposed to a control or treatment in an experiment.",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "fields" : [
+    {
+      "name": "experiment_id",
+      "type": "string",
+      "doc": "An identifier for the experiment the subject was exposed to."
+    },
+    {
+      "name": "allocation_id",
+      "type": "string",
+      "doc": "A string uniquely identifying a subject's allocation to an experiment."
+    },
+    {
+      "name": "treatment_id",
+      "type": "string",
+      "doc": "A string identifying the treatment a subject was exposed to within the experiment."
+    },
+    {
+      "name": "allocation_dimensions",
+      "type": "string",
+      "encoding": "json_object",
+      "doc": "A serialized JSON string containing the allocation dimensions."
+    },
+    {
+      "name": "exposure_dimensions",
+      "type": ["null", "string"],
+      "encoding": "json_object",
+      "doc": "A serialized JSON string containing the exposure dimensions. These are dimensions that the experiment results can be segmented on."
+    }
+  ]
+}
+

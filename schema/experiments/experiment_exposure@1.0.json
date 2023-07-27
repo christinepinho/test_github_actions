@@ -1,0 +1,47 @@
+{
+  "name": "experiment_exposure",
+  "team": "data-engineering",
+  "doc": "DEPRECATED. Use exposure instead. This event is emitted when a user is exposed to a control or treatment in an experiment.",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "fields" : [
+    {
+      "name": "experiment_namespace",
+      "type": "string",
+      "doc": "Namespace the experiment was allocated against."
+    },
+    {
+      "name": "experiment_name",
+      "type": "string",
+      "doc": "Name of the experiment that the user was allocated to"
+    },
+    {
+      "name": "experiment_salt",
+      "type": "string",
+      "doc": "Salt used when generating the allocation hash."
+    },
+    {
+      "name": "allocation_hash",
+      "type": "string",
+      "doc": "A string uniquely identifying a user's allocation to an experiment."
+    },
+    {
+      "name": "allocation_dimensions",
+      "type": "string",
+      "encoding": "json_object",
+      "doc": "A serialized JSON string containing the data allocated against."
+    },
+    {
+      "name": "parameters",
+      "type": "string",
+      "encoding": "json_object",
+      "doc": "A serialized JSON string containing the parameters returned by the experiment."
+    },
+    {
+      "name": "exposure_timestamp",
+      "type": {"type": "long", "logicalType": "timestamp-millis"},
+      "doc": "An epoch timestmap indicating the time that the exposure happened."
+    }
+  ]
+}
+

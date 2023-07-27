@@ -1,0 +1,55 @@
+{
+  "name": "experiment_ui_usage",
+  "doc": "Usage tracking record for the experiment UI",
+  "team": "data-engineering",
+  "type": "record",
+  "includes": ["event_data/1.0"],
+  "valid_events": ["page_view", "feature_use", "metric_use"],
+  "fields": [
+      {
+          "name": "target",
+          "type": "string",
+          "doc": "Name of the page or UI element that the user interacted with, or the metric selected for the experiment"
+      },
+      {
+          "name": "experiment_name",
+          "type": ["null", "string"],
+          "doc": "Name of the experiment being interacted with"
+      },
+      {
+        "name": "experiment_public_id",
+        "type": ["null", "string"],
+        "doc": "Public id for experiment"
+      },
+      {
+          "name": "viewer_squad",
+          "type": ["null", "string"],
+          "doc": "Squad that the user viewing the UI is part of"
+      },
+      {
+          "name": "viewer_name",
+          "type": "string",
+          "doc": "Username of the user viewing the UI is part of"
+      },
+      {
+          "name": "owner_squad",
+          "type": ["null", "string"],
+          "doc": "Squad that the experiment belongs to, if applicable"
+      },
+      {
+          "name": "search_term",
+          "type": ["null", "string"],
+          "doc": "Term used when searching for an experiment"
+      },
+      {
+        "name": "dashboard_filter_key",
+        "type": ["null", "string"],
+        "doc": "Filter used on the experiment dashboard"
+      },
+      {
+        "name": "dashboard_sort_key",
+        "type": ["null", "string"],
+        "doc": "Key used to sort the experiment dashboard results"
+      }
+  ]
+}
