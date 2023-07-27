@@ -11,7 +11,7 @@ jobs:
       - name: List files in the repository
         id: all-schemas
         run: |
-          echo "all_schemas=$(find schema -type f -exec basename {} \;) >> $ALL_SCHEMAS
+          echo "all_schemas=$(find schema -type f -exec basename {} \;)" >> $ALL_SCHEMAS
       - name: Get changed files
         id: changed-files
         run: |
