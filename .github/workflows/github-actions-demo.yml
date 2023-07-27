@@ -11,7 +11,9 @@ jobs:
       - name: List files in the repository
         id: all-schemas
         run: |
-          echo "all_schemas=$(find schema -type f -exec basename {} \;)" >> $GITHUB_OUTPUT
+          echo 'all_schemas<<EOF' >>$GITHUB_OUTPUT
+          $(find schema -type f -exec basename {} \;)>> $GITHUB_OUTPUT
+          echo 'EOF'>> $GITHUB_OUTPUT
       - name: Get changed files
         id: changed-files
         run: |
@@ -21,6 +23,7 @@ jobs:
               echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
           fi
       - name: Find dupes
+        needs: changed-files
         id: find-dupes
         run: |
           for file in ${{ steps.changed-files.outputs.changed_files }}; do
