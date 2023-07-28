@@ -21,12 +21,12 @@ jobs:
           echo "all_schemas=$(find schema -type f -exec basename {} \; | xargs)" >> $GITHUB_OUTPUT
       - name: Show all-schemas output for debugging
         run: | # WHY ISNT ECHO WORKING
-          echo 'outputs are: ${{ (steps.all-schemas.outputs[0]) }}'
+          echo 'outputs are: ${{ (steps.all-schemas.outputs.all_schemas[0]) }}'
         shell:
           bash
       - name: Show changed-files output for debugging
         run: |
-          echo 'outputs are: ${{ (steps.changed-files.outputs[0]) }}'
+          echo 'outputs are: ${{ (steps.changed-files.outputs.changed_files[0]) }}'
         shell:
           bash
       - name: Find dupes
