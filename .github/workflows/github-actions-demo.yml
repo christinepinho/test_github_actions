@@ -19,9 +19,8 @@ jobs:
       - name: List files in the repository
         id: all-schemas
         run: |
-          echo 'all_schemas<<EOF' >>$GITHUB_OUTPUT
-          $(find schema -type f -exec basename {} \;)>> $GITHUB_OUTPUT
-          echo 'EOF'>> $GITHUB_OUTPUT
+          echo "all_schemas=$(find schema -type f -exec basename {} \; | xargs) >> $GITHUB_OUTPUT
+          echo $all_schemas
       - name: Find dupes
         id: find-dupes
         run: |
