@@ -24,7 +24,7 @@ jobs:
         id: find-dupes
         run: |
           for file in "${{ steps.changed-files.outputs.changed_files }}"; do
-              if ${steps.all-schemas.outputs.all_schemas}; then
+              if "${steps.all-schemas.outputs.all_schemas}" ; then
                   echo "found_dupes=true" >> $GITHUB_OUTPUT
               fi
           done;
