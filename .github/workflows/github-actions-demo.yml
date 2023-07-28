@@ -20,4 +20,4 @@ jobs:
               |
               :warning: Potentially found duplicate schema names!
             GITHUB_TOKEN:
-              ${{ secrets.GITHUB_TOKEN }}- name: Comment PR Found
+              ${{ secrets.GITHUB_TOKEN }}
