@@ -14,8 +14,9 @@ jobs:
           echo "found_dupes=$(find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -dD | xargs)" >> $GITHUB_OUTPUT
       - name: Comment on pull_request
         if: steps.dupes.outputs.found_dupes
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
+          github-token: ${{secrets.ACTIONS_TOKEN}}
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
