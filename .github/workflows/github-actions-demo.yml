@@ -1,5 +1,4 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Schemas Should Be Unique
 on: [push]
 jobs:
   Check-Schema-Uniqueness:
@@ -22,11 +21,10 @@ jobs:
           echo "all_schemas=$(find schema -type f -exec basename {} \; | xargs)" >> $GITHUB_OUTPUT
       - name: Find dupes
         id: find-dupes
+        if: steps.all-schemas.outputs.all_schemas !== 'true'
         run: |
           for file in "${{ steps.changed-files.outputs.changed_files }}"; do
-              if "${steps.all-schemas.outputs.all_schemas}" ; then
-                  echo "found_dupes=true" >> $GITHUB_OUTPUT
-              fi
+              echo "found_dupes=true" >> $GITHUB_OUTPUT
           done;
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
