@@ -10,7 +10,7 @@ jobs:
       - name: Get dupes
         id: dupes
         run: |
-          find . ! -empty -type f -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -w32 -dD
+          find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -w32 -dD
       - name: Get changed files
         id: changed-files
         run: |
