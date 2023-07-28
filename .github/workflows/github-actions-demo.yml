@@ -26,7 +26,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.changed_files }}; do
               if [[ " ${steps.all-schemas.outputs.all_schemas[*]} " =~ " ${file} " ]]; then
-                  echo "found_dupes='true'" >> $GITHUB_OUTPUT
+                  echo "found_dupes=true" >> $GITHUB_OUTPUT
           done;
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
