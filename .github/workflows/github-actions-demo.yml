@@ -20,12 +20,11 @@ jobs:
         id: all-schemas
         run: |
           echo "all_schemas=$(find schema -type f -exec basename {} \; | xargs)" >> $GITHUB_OUTPUT
-          echo $all_schemas
       - name: Find dupes
         id: find-dupes
         run: |
           for file in "${{ steps.changed-files.outputs.changed_files }}"; do
-              if [[ " ${steps.all-schemas.outputs.all_schemas} " =~ " ${file} " ]]; then
+              if [[ " ${steps.all-schemas.outputs} " =~ " ${file} " ]]; then
                   echo "found_dupes=true" >> $GITHUB_OUTPUT
               fi
           done;
