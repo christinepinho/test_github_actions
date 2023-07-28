@@ -19,12 +19,22 @@ jobs:
         id: all-schemas
         run: |
           echo "all_schemas=$(find schema -type f -exec basename {} \; | xargs)" >> $GITHUB_OUTPUT
+      - name: Show all-schemas output for debugging
+        run: |
+          echo 'outputs are: ${ (steps.all-schemas.outputs) }'
+        shell:
+          bash
+      - name: Show changed-files output for debugging
+        run: |
+          echo 'outputs are: ${ (steps.changed-files.outputs) }'
+        shell:
+          bash
       - name: Find dupes
         id: find-dupes
         if: steps.all-schemas.outputs.all_schemas != 'true'
         run: |
           for file in "${{ steps.changed-files.outputs.changed_files }}"; do
-              if "${ steps.all-schemas.outputs.all_schemas }" ; then
+              if "${steps.all-schemas.outputs.all_schemas}" ; then
                   echo "found_dupes=true" >> $GITHUB_OUTPUT
               fi
           done;
@@ -32,7 +42,7 @@ jobs:
           bash
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
-        if: steps.find-dupes.outputs.found_dupes == 'true'
+        if: [[ " ${steps.all-schemas.outputs.all_schemas[*]} " =~ " ${file} " ]];
         with:
           message: |
             :warning: Potentially found duplicate schema name!
