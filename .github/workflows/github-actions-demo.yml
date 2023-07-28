@@ -24,9 +24,10 @@ jobs:
       - name: Find dupes
         id: find-dupes
         run: |
-          for file in ${{ steps.changed-files.outputs.changed_files }}; do
+          for file in "${{ steps.changed-files.outputs.changed_files }}"; do
               if [[ " ${steps.all-schemas.outputs.all_schemas[*]} " =~ " ${file} " ]]; then
                   echo "found_dupes=true" >> $GITHUB_OUTPUT
+              fi
           done;
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
