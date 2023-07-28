@@ -4,16 +4,20 @@ jobs:
   Check-Schema-Uniqueness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
       - name: Get dupes
         id: dupes
         run: |
           echo "found_dupes=$(find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -dD | xargs)" >> $GITHUB_OUTPUT
-      - name: Comment PR Found
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Comment a pull_request
         if: steps.dupes.outputs.found_dupes
+        uses: mb2dev/github-action-comment-pull-request@1.0.0
         with:
-          message: |
-            :warning: Potentially found duplicate schema names!
+            message:
+              |
+              :warning: Potentially found duplicate schema names!
+            GITHUB_TOKEN:
+              ${{ secrets.GITHUB_TOKEN }}- name: Comment PR Found
