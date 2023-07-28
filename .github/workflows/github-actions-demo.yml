@@ -28,6 +28,8 @@ jobs:
                   echo "found_dupes=true" >> $GITHUB_OUTPUT
               fi
           done;
+        shell:
+          bash
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
         if: steps.find-dupes.outputs.found_dupes == 'true'
