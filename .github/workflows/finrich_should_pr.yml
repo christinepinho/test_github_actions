@@ -24,7 +24,6 @@ jobs:
           bash
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
-        if: steps.find-finrich-files.outputs.any_changed == 'true'
         with:
           message: |
             :warning: Potentially found finrich file! 
