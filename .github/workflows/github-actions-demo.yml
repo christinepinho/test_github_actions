@@ -12,14 +12,10 @@ jobs:
         id: dupes
         run: |
           echo "found_dupes=$(find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -dD | xargs)" >> $GITHUB_OUTPUT
-      - name: Comment on pull_request
+      - name: Comment PR Found
+        uses: thollander/actions-comment-pull-request@v2
         if: steps.dupes.outputs.found_dupes
-        uses: actions/github-script@v6
         with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: ':warning: Duplicate schema names found in the repo'
-            })
+          message: |
+            :warning: Duplicate schema names found in the repo'
+    
