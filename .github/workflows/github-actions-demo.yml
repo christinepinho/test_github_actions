@@ -42,7 +42,7 @@ jobs:
           bash
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
-        if: [[ " ${steps.all-schemas.outputs.all_schemas[*]} " =~ " ${file} " ]];
+        if: steps.find-dupes.outputs.found_dupes == 'true';
         with:
           message: |
             :warning: Potentially found duplicate schema name!
