@@ -10,42 +10,10 @@ jobs:
       - name: Get dupes
         id: dupes
         run: |
-          find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -w32 -dD
-      - name: Get changed files
-        id: changed-files
-        run: |
-          if ${{ github.event_name == 'pull_request' }}; then
-              echo "changed_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
-          else
-              echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
-          fi
-      - name: List files in the repository  # this wont' work because all-schemas will have pr schemas too
-        id: all-schemas
-        run: |
-          echo "all_schemas=$(find schema -type f -exec basename {} \; | xargs)" >> $GITHUB_OUTPUT
-      - name: Show all-schemas output for debugging
-        run: | # WHY IS THERE NOTHING IN THE ARRAY. maybe use find duplicates. but would that block a Pr if it already existed
-          echo 'outputs are: ${{ (steps.all-schemas.outputs.all_schemas[0]) }}'
-        shell:
-          bash
-      - name: Show changed-files output for debugging
-        run: |
-          echo 'outputs are: ${{ (steps.changed-files.outputs.changed_files[0]) }}'
-        shell:
-          bash
-      - name: Find dupes
-        id: find-dupes
-        run: |
-          for file in "${{ steps.changed-files.outputs.changed_files }}"; do
-              if [[ " ${{steps.all-schemas.outputs.all_schemas[*]}} " =~ " ${file} " ]]; then
-                  echo "found_dupes='true'" >> GITHUB_OUTPUT
-              fi
-          done;
-        shell:
-          bash
+          echo "found_dupes=$(find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -dD | xargs)" >> $GITHUB_OUTPUT
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
-        if: steps.find-dupes.outputs.found_dupes == 'true'
+        if: steps.dupes.outputs.found_dupes
         with:
           message: |
-            :warning: Potentially found duplicate schema name!
+            :warning: Potentially found duplicate schema names!
