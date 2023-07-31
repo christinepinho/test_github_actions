@@ -18,7 +18,7 @@ jobs:
         uses:
           tj-actions/changed-files@v37
         with:
-          files: schema/*.{json}
+          files: schema/**
       - name: Check filename matches schemaname
         id: matches
         run: |
