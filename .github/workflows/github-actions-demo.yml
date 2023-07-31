@@ -13,10 +13,21 @@ jobs:
           echo "found_dupes=$(find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -dD | xargs)" >> $GITHUB_OUTPUT
         shell:
           bash
+      - name: Get changed files
+          id: changed-files
+          uses:
+            tj-actions/changed-files@v37
+      - name: Check filename matches schemaname
+        id: matches
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+            echo ${{ toJSON(file) }}
+          done
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
         if: steps.dupes.outputs.found_dupes
         with:
           message: |
-            :warning: Duplicate schema names found in the repo'
+            :warning: Duplicate schema names found in the repo
     

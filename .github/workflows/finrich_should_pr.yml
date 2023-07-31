@@ -10,8 +10,21 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+      - name: Get Finrich-relevant schemas changed
+        id: find-finrich-files
+        uses: tj-actions/changed-files@v35
+        with:
+          files_from_source_file: |
+            .github/workflows/finrich_schemas.txt
+          separator: "\n"
+      - name: Show output for debugging
+        run: |
+          echo 'outputs are: ${{ toJSON(steps.find-finrich-files.outputs) }}'
+        shell:
+          bash
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
+        if: steps.find-finrich-files.outputs.any_changed == 'true'
         with:
           message: |
             :warning: Potentially found finrich file! 
