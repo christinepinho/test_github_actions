@@ -1,0 +1,10 @@
+schema/rfd/cashout_financial_data*
+schema/finance/fin_event*
+schema/remittance_product/transaction_state_transition*
+schema/ufdl/cashout_disbursement_fin_event*
+schema/rfd/cashout_financial_data*
+schema/dex/disbursement_fin_event*
+schema/treasury/cash_transfer*
+schema/treasury/trade*
+schema/finance/loss_logic*
+schema/finance/transaction_promo_metadata*

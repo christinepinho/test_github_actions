@@ -1,0 +1,36 @@
+name: Schema names in the yml should match the filename
+on: pull_request
+jobs:
+  CheckSchemaMatches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+      - name: Get changed files
+        id: changed-files
+        uses:
+          tj-actions/changed-files@v37
+        with:
+          files: schema/**
+      - name: Check filename matches schemaname
+        id: matches
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            bName="${file##*/}"
+            filename="${bName%%@*}"
+            echo $filename
+            name=$(jq -r '.name' $file)
+            echo $name
+            if [ $filename != $name ]
+               then
+               echo "matches=found" >> $GITHUB_OUTPUT
+               echo "FOUND"
+            fi
+          done
+      - name: Comment PR Found
+        uses: thollander/actions-comment-pull-request@v2
+        if: steps.matches.outputs.matches
+        with:
+          message: |
+            :warning: Schema name in file does not match file name
