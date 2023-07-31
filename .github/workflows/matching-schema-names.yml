@@ -20,9 +20,9 @@ jobs:
             bName="${file##*/}"
             filename="${bName%%@*}"
             echo $filename
-            name=$(jq '.name' $file)
+            name=$(jq -r '.name' $file)
             echo $name
-            echo [$filename != $name ]
+            [$filename != $name ]
             if [ $filename != $name ]
                then
                echo "matches=found" >> $GITHUB_OUTPUT
