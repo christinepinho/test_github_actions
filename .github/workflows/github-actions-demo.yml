@@ -22,7 +22,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
-            echo ${{ toJSON(file) }}
+            echo ${{ toJSON($file) }}
           done
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
