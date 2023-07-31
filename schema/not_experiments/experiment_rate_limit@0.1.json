@@ -1,5 +1,5 @@
 {
-  "name": "experiment_rate_limit",
+  "name": "experiment_rate_limited",
   "doc": "Rate limiting event for an experiment",
   "team": "data-engineering",
   "type": "record",
