@@ -28,10 +28,10 @@ jobs:
             fi
           done
       - name: Comment PR Found
-        uses: thollander/actions-comment-pull-request@v2
         if: steps.matches.outputs.matches
-        with:
-          message: |
-            :warning: Schema name in file does not match file name
+        run: |
+          echo 'outputs are: ${{ steps.matches.outputs.matches }}'
+        shell:
+          bash
 
     
