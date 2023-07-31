@@ -13,6 +13,12 @@ jobs:
           echo "found_dupes=$(find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -dD | xargs)" >> $GITHUB_OUTPUT
         shell:
           bash
+      - name: Comment PR Found
+        uses: thollander/actions-comment-pull-request@v2
+        if: steps.dupes.outputs.found_dupes
+        with:
+          message: |
+            :warning: Duplicate schema names found in the repo
       - name: Get changed files
         id: changed-files
         uses:
@@ -26,15 +32,15 @@ jobs:
             echo "$file was changed"
             echo "filename=$($file | grep -oE '(.+)@' | grep -oE '([^/]+)@' | rev | cut -c 2- | rev)"
             echo "name=$(yq eval '.name' $file)"
-            if [ $filename == $name ]
+            if [ $filename != $name ]
                then
-               echo "They're equal!"
+               echo "matches=found" >> $GITHUB_OUTPUT
             fi
           done
       - name: Comment PR Found
         uses: thollander/actions-comment-pull-request@v2
-        if: steps.dupes.outputs.found_dupes
+        if: steps.matches.outputs.matches
         with:
           message: |
-            :warning: Duplicate schema names found in the repo
+            :warning: Schema name in file does not match file name
     
