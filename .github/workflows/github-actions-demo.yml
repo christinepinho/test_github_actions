@@ -14,9 +14,9 @@ jobs:
         shell:
           bash
       - name: Get changed files
-          id: changed-files
-          uses:
-            tj-actions/changed-files@v37
+        id: changed-files
+        uses:
+          tj-actions/changed-files@v37
       - name: Check filename matches schemaname
         id: matches
         run: |
