@@ -17,7 +17,8 @@ jobs:
         id: matches
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "filename=$($file | grep -oE '(.+)@' | grep -oE '([^/]+)@' | rev | cut -c 2- | rev)"
+            bName="${file##*/}"
+            filename="${bName%%@*}"
             echo "name=$(jq '.name' $file)"
             if [ $filename != $name ]
                then
