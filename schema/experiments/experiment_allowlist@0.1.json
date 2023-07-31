@@ -1,5 +1,5 @@
 {
-  "name": "experiment_allowlists",
+  "name": "experiment_allowlist",
   "team": "data-engineering",
   "doc": "This event is emitted when a user is allowlisted to an experiment",
   "includes": ["event_data/1.0"],
