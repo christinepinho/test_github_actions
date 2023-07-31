@@ -20,7 +20,7 @@ jobs:
             bName="${file##*/}"
             filename="${bName%%@*}"
             echo $filename
-            echo "name=$(jq '.name' $file)"
+            name=$(jq '.name' $file)
             echo $filename != $name
             if [ $filename != $name ]
                then
