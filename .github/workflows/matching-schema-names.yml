@@ -1,24 +1,12 @@
-name: Schemas Should Be Unique
+name: Schema names in the yml should match the filename
 on: pull_request
 jobs:
-  CheckSchemaUniqueness:
+  CheckSchemaMatches:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
-      - name: Get dupes
-        id: dupes
-        run: |
-          echo "found_dupes=$(find schema ! -empty -type f -exec basename {} \; -exec sh -c 'md5sum "$1"' _ {} \; | sort | uniq -dD | xargs)" >> $GITHUB_OUTPUT
-        shell:
-          bash
-      - name: Comment PR Found
-        uses: thollander/actions-comment-pull-request@v2
-        if: steps.dupes.outputs.found_dupes
-        with:
-          message: |
-            :warning: Duplicate schema names found in the repo
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
       - name: Get changed files
         id: changed-files
         uses:
@@ -42,4 +30,5 @@ jobs:
         with:
           message: |
             :warning: Schema name in file does not match file name
+
     
