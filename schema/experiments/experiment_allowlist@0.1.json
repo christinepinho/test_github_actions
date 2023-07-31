@@ -6,8 +6,8 @@
   "valid_events": ["create"],
   "fields" : [
     {
-      "name": "experiment_public_ids",
-      "type": "string",
+      "name": "experiment_public_id",
+      "type": "int",
       "doc": "An externally referencable identifier for the experiment. Also known as experiment_key in experiment mart."
     },
     {
